@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/shrin/OneDrive/Desktop/code/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Trust Grievance Platform</title>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="file://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<style>
+:root {
+  --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  --primary: #6366f1;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --border: #bf953f; /* Golden Border */
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at top right, #1e1b4b, #020617);
+  background-attachment: fixed;
+  color: var(--text);
+  padding-bottom: 90px;
+  overflow-x: hidden;
+}
+
+/* Golden Aesthetic Background Element */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* Translation Box */
+#google_translate_element {
+  padding: 10px;
+  text-align: right;
+  background: rgba(0,0,0,0.5);
+}
+
+/* Animations */
+@keyframes twirlIn {
+  0% { transform: translateY(100%) rotate(15deg) translateX(100%); opacity: 0; }
+  100% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+}
+
+.page { 
+  display: none; 
+  padding: 20px; 
+  animation: twirlIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.active { display: block; }
+
+/* Cards & Components */
+.card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  border: 1px solid #bf953f55;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.complaint-item {
+  background: #0f172a;
+  border: 1px solid var(--border);
+  padding: 15px;
+  margin-top: 12px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+.complaint-item:hover { transform: scale(1.02); }
+
+/* Status Boxes on Right */
+.status-container {
+  min-width: 100px;
+  text-align: right;
+}
+
+/* Distinct Button Colors */
+.btn-voice { background: #8b5cf6; color: white; }
+.btn-submit { background: var(--success); color: white; border: 2px solid #fff; }
+.btn-verify { background: #3b82f6; color: white; }
+.btn-resolve { background: #059669; color: white; }
+.btn-broken { background: var(--danger); color: white; }
+
+button {
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.3);
+  color: white;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: bold;
+}
+.status-Pending { background: var(--warning); box-shadow: 0 0 10px #f59e0b55; }
+.status-Verified { background: #3b82f6; box-shadow: 0 0 10px #3b82f655; }
+.status-Resolved { background: var(--success); box-shadow: 0 0 10px #22c55e55; }
+
+/* Navigation Bar */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: rgba(2, 6, 23, 0.9);
+  backdrop-filter: blur(15px);
+  box-sizing: border-box;
+}
+.nav-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+}
+.nav-submit { background: #3b82f6; }
+.nav-dash { background: #bf953f; } /* Golden Dash */
+.nav-admin { background: #ef4444; }
+
+h2 { border-bottom: 2px solid var(--border); display: inline-block; padding-bottom: 5px; }
+
+</style>
+</head>
+
+<body>
+
+<div id="google_translate_element"></div>
+
+<div id="submitPage" class="page active">
+  <h2 style="color: #bf953f;">Submit Grievance</h2>
+  <div class="card">
+    <label>Issue Category</label>
+<input type="text" id="issueType" placeholder="e.g., Broken Pipe, Street Light Out...">
+
+    
+    <input type="text" id="locationInput" placeholder="Enter Location Address...">
+    <textarea id="complaintText" rows="4" placeholder="Describe the issue in detail..."></textarea>
+    <button class="btn-voice" onclick="startVoice()">🎤 Use Voice-to-Text</button>
+    <button class="btn-submit" onclick="handleSubmit()">🚀 Submit Complaint</button>
+  </div>
+</div>
+
+<div id="dashboardPage" class="page">
+  <h2 style="color: #fcf6ba;">User Dashboard</h2>
+  <div class="card" style="background: var(--gold); color: black;">
+    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+        <span>Total: <span id="stat-total">2</span></span>
+        <span id="stat-summary">P: 0 | V: 0 | R: 0</span>
+    </div>
+  </div>
+  <div id="user-complaint-list">
+            <div class="complaint-item" onclick="selectForAdmin(2)">
+                <div style="max-width: 70%;">
+                    <strong style="color: #fcf6ba;">Electricity: Blackout</strong><br>
+                    <small style="color: #94a3b8;">📍 Main Road</small>
+                </div>
+                <div class="status-container">
+                    <span class="badge status-Verified">Verified</span>
+                </div>
+            </div>
+        
+            <div class="complaint-item" onclick="selectForAdmin(1)">
+                <div style="max-width: 70%;">
+                    <strong style="color: #fcf6ba;">Water: Pipe burst</strong><br>
+                    <small style="color: #94a3b8;">📍 Sector 4</small>
+                </div>
+                <div class="status-container">
+                    <span class="badge status-Pending">Pending</span>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div id="adminPage" class="page">
+  <h2 style="color: #ef4444;">Admin Control</h2>
+  <div class="card">
+    <h4 id="activeTitle" style="margin-top:0;">No Selection</h4>
+    <div id="statusBadge" class="badge status-Pending" style="display:inline-block; margin-bottom:10px;">Waiting...</div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <button class="btn-verify" onclick="adminAction(&#39;Verified&#39;)">Verify</button>
+        <button class="btn-resolve" onclick="adminAction(&#39;Resolved&#39;)">Mark Resolved</button>
+    </div>
+  </div>
+
+  <div class="card" style="border: 2px solid var(--warning);">
+    <p><strong>Final Citizen Audit:</strong></p>
+    <div style="display: flex; gap: 10px;">
+        <button style="flex:1; background: var(--success);" onclick="finalValidation(&#39;Solved&#39;)">Yes, Fixed</button>
+        <button class="btn-broken" style="flex:1;" onclick="finalValidation(&#39;Broken&#39;)">No, Re-Open</button>
+    </div>
+    <p id="finalMessage" style="text-align: center; font-weight: bold;"></p>
+  </div>
+
+  <h3 style="color: #bf953f;">Management Feed</h3>
+  <div id="admin-complaint-list">
+            <div class="complaint-item" onclick="selectForAdmin(2)">
+                <div style="max-width: 70%;">
+                    <strong style="color: #fcf6ba;">Electricity: Blackout</strong><br>
+                    <small style="color: #94a3b8;">📍 Main Road</small>
+                </div>
+                <div class="status-container">
+                    <span class="badge status-Verified">Verified</span>
+                </div>
+            </div>
+        
+            <div class="complaint-item" onclick="selectForAdmin(1)">
+                <div style="max-width: 70%;">
+                    <strong style="color: #fcf6ba;">Water: Pipe burst</strong><br>
+                    <small style="color: #94a3b8;">📍 Sector 4</small>
+                </div>
+                <div class="status-container">
+                    <span class="badge status-Pending">Pending</span>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn nav-submit" onclick="showPage(&#39;submitPage&#39;)">SUBMIT</button>
+  <button class="nav-btn nav-dash" onclick="showPage(&#39;dashboardPage&#39;)">DASHBOARD</button>
+  <button class="nav-btn nav-admin" onclick="showPage(&#39;adminPage&#39;)">ADMIN PANEL</button>
+</div>
+
+<script>
+const alertSound = new Audio('https://actions.google.com/sounds/v1/actions/beep.ogg');
+
+let complaints = JSON.parse(localStorage.getItem('grievance_gold_data')) || [
+    { id: 1, title: "Water: Pipe burst", location: "Sector 4", status: "Pending" },
+    { id: 2, title: "Electricity: Blackout", location: "Main Road", status: "Verified" }
+];
+
+let selectedComplaintId = null;
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  renderLists();
+}
+
+function saveData() {
+    localStorage.setItem('grievance_gold_data', JSON.stringify(complaints));
+}
+
+function handleSubmit() {
+    const type = document.getElementById('issueType').value;
+    const loc = document.getElementById('locationInput').value;
+    const desc = document.getElementById('complaintText').value;
+
+    if(!loc || !desc) return alert("Please fill all fields");
+
+    const newComplaint = {
+        id: Date.now(),
+        title: type + ": " + desc.substring(0, 25),
+        location: loc,
+        status: "Pending"
+    };
+
+    complaints.push(newComplaint);
+    saveData();
+    alertSound.play();
+    alert("✨ Grievance Logged Successfully!");
+    showPage('dashboardPage');
+}
+
+function renderLists() {
+    const userList = document.getElementById('user-complaint-list');
+    const adminList = document.getElementById('admin-complaint-list');
+    
+    document.getElementById('stat-total').innerText = complaints.length;
+    
+    let htmlContent = complaints.slice().reverse().map(item => {
+        return `
+            <div class="complaint-item" onclick="selectForAdmin(${item.id})">
+                <div style="max-width: 70%;">
+                    <strong style="color: #fcf6ba;">${item.title}</strong><br>
+                    <small style="color: #94a3b8;">📍 ${item.location}</small>
+                </div>
+                <div class="status-container">
+                    <span class="badge status-${item.status}">${item.status}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    userList.innerHTML = htmlContent;
+    adminList.innerHTML = htmlContent;
+}
+
+function selectForAdmin(id) {
+    const item = complaints.find(c => c.id === id);
+    if(item) {
+        selectedComplaintId = id;
+        document.getElementById("activeTitle").innerText = item.title;
+        document.getElementById("statusBadge").innerText = item.status;
+        document.getElementById("statusBadge").className = `badge status-${item.status}`;
+        // Give visual feedback for selection
+        alertSound.play();
+    }
+}
+
+function adminAction(newStatus) {
+    if(!selectedComplaintId) return alert("Select a case from the list below!");
+    const item = complaints.find(c => c.id === selectedComplaintId);
+    item.status = newStatus;
+    saveData();
+    renderLists();
+    selectForAdmin(selectedComplaintId);
+}
+
+function finalValidation(type) {
+    const msg = document.getElementById("finalMessage");
+    if(!selectedComplaintId) return alert("Select a case first!");
+
+    const item = complaints.find(c => c.id === selectedComplaintId);
+
+    if (type === 'Solved') {
+        item.status = "Resolved";
+        msg.innerText = "Confirmed: Issue Resolved";
+        msg.style.color = "#22c55e";
+    } else {
+        item.status = "Pending"; 
+        msg.innerText = "Alert: Issue Re-Opened";
+        msg.style.color = "#f59e0b";
+    }
+
+    saveData();
+    renderLists();
+    selectForAdmin(selectedComplaintId);
+}
+
+function startVoice(){
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.start();
+  
+  recognition.onresult = (e) => {
+    document.getElementById("complaintText").value = e.results[0][0].transcript;
+    alertSound.play();
+  };
+  
+  recognition.onerror = () => alert("Voice recognition failed. Please try again.");
+}
+
+// Initial Render
+renderLists();
+</script>
+
+</body></html>
